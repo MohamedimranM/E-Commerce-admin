@@ -16,6 +16,10 @@ export const useLogin = () => {
     mutationFn: (data: { email: string; password: string }) =>
       loginService(data),
     onSuccess: (data) => {
+      if (data.user.role !== "admin") {
+        toast.error("Access denied. Admins only.");
+        return;
+      }
       toast.success(data?.message);
       store.dispatch(
         setCredentials({
