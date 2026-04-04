@@ -116,3 +116,28 @@ export interface ApiError {
   message: string;
   statusCode?: number;
 }
+
+// ── Banners ──────────────────────────────────────────────────
+export interface BannerImage {
+  url: string;
+  public_id: string;
+}
+
+export interface Banner {
+  _id: string;
+  name: string;
+  image: BannerImage;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface BannersResponse {
+  success: boolean;
+  totalBanners: number;
+  banners: Banner[];
+}
+
+export interface BannerResponse {
+  success: boolean;
+  banner: Banner;
+}
