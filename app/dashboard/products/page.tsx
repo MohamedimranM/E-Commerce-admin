@@ -177,7 +177,7 @@ export default function ProductsPage() {
           <div>
             <p className="text-sm text-gray-500">Inventory Value</p>
             <p className="text-xl font-bold text-[#1E272E]">
-              ${totalValue.toLocaleString()}
+              AED {totalValue.toLocaleString()}
             </p>
           </div>
         </div>
@@ -310,7 +310,7 @@ export default function ProductsPage() {
                       </span>
                     </td>
                     <td className="px-4 py-3 font-medium text-[#1E272E]">
-                      ${product.price.toLocaleString()}
+                      AED {product.price.toLocaleString()}
                     </td>
                     <td className="px-4 py-3">
                       <span

@@ -271,7 +271,7 @@ export function ProductModal({
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="price" error={!!showError("price")}>
-                    Price ($)
+                    Price (AED)
                   </Label>
                   <Input
                     id="price"
