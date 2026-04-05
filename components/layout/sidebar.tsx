@@ -50,7 +50,7 @@ export function Sidebar() {
             exit={{ opacity: 0, width: 0 }}
             className="overflow-hidden whitespace-nowrap text-lg font-bold text-white"
           >
-            Luthuf Admin
+            Shopping Hub Admin
           </motion.span>
         )}
       </div>
