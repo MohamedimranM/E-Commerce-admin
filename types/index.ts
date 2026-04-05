@@ -141,3 +141,55 @@ export interface BannerResponse {
   success: boolean;
   banner: Banner;
 }
+
+// ── Orders ───────────────────────────────────────────────────
+export type OrderStatus = 'Pending' | 'Confirmed' | 'Shipped' | 'Delivered' | 'Cancelled';
+
+export interface OrderItem {
+  _id: string;
+  product: string;
+  name: string;
+  image: string;
+  price: number;
+  quantity: number;
+}
+
+export interface ShippingAddress {
+  fullName: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  country: string;
+}
+
+export interface Order {
+  _id: string;
+  user: Pick<User, '_id' | 'name' | 'email'> | string;
+  orderItems: OrderItem[];
+  shippingAddress: ShippingAddress;
+  paymentMethod: string;
+  itemsPrice: number;
+  shippingPrice: number;
+  totalPrice: number;
+  status: OrderStatus;
+  isPaid: boolean;
+  paidAt?: string;
+  isDelivered: boolean;
+  deliveredAt?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface OrdersResponse {
+  success: boolean;
+  count: number;
+  totalRevenue: number;
+  orders: Order[];
+}
+
+export interface OrderResponse {
+  success: boolean;
+  order: Order;
+}

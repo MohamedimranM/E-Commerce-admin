@@ -4,6 +4,7 @@ import {
   Package,
   Star,
   ImageIcon,
+  ShoppingBag,
   type LucideIcon,
 } from "lucide-react";
 
@@ -45,6 +46,12 @@ export const navigation: NavGroup[] = [
         href: "/dashboard/products",
         icon: Package,
         segment: "products",
+      },
+      {
+        label: "Orders",
+        href: "/dashboard/orders",
+        icon: ShoppingBag,
+        segment: "orders",
       },
       {
         label: "Reviews",
