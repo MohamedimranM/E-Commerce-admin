@@ -31,9 +31,9 @@ export const useCreateProduct = () => {
 
   return useMutation({
     mutationFn: (data: FormData) => createProductService(data),
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Product created successfully");
-      queryClient.invalidateQueries({ queryKey: ["products"] });
+      await queryClient.invalidateQueries({ queryKey: ["products"] });
     },
     onError: (error: unknown) => {
       const err = error as {
@@ -53,9 +53,9 @@ export const useUpdateProduct = () => {
   return useMutation({
     mutationFn: (payload: { id: string; data: Partial<ProductPayload> }) =>
       updateProductService(payload),
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Product updated successfully");
-      queryClient.invalidateQueries({ queryKey: ["products"] });
+      await queryClient.invalidateQueries({ queryKey: ["products"] });
     },
     onError: (error: unknown) => {
       const err = error as {
@@ -74,9 +74,9 @@ export const useDeleteProduct = () => {
 
   return useMutation({
     mutationFn: (id: string) => deleteProductService(id),
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       toast.success(data?.message || "Product deleted successfully");
-      queryClient.invalidateQueries({ queryKey: ["products"] });
+      await queryClient.invalidateQueries({ queryKey: ["products"] });
     },
     onError: (error: unknown) => {
       const err = error as {

@@ -28,9 +28,9 @@ export const useDeleteUser = () => {
 
   return useMutation({
     mutationFn: (id: string) => deleteUserService(id),
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       toast.success(data?.message || "User deleted successfully");
-      queryClient.invalidateQueries({ queryKey: ["users"] });
+      await queryClient.invalidateQueries({ queryKey: ["users"] });
     },
     onError: (error: unknown) => {
       const err = error as {

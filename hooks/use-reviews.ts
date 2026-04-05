@@ -11,9 +11,9 @@ export const useAddReview = () => {
   return useMutation({
     mutationFn: (payload: { productId: string; data: ReviewPayload }) =>
       addReviewService(payload),
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       toast.success(data?.message || "Review added successfully");
-      queryClient.invalidateQueries({ queryKey: ["products"] });
+      await queryClient.invalidateQueries({ queryKey: ["products"] });
     },
     onError: (error: unknown) => {
       const err = error as {

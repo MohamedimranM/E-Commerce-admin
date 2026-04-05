@@ -21,9 +21,9 @@ export const useCreateBanner = () => {
 
   return useMutation({
     mutationFn: (data: FormData) => createBannerService(data),
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Banner created successfully");
-      queryClient.invalidateQueries({ queryKey: ["banners"] });
+      await queryClient.invalidateQueries({ queryKey: ["banners"] });
     },
     onError: (error: unknown) => {
       const err = error as {
@@ -43,9 +43,9 @@ export const useUpdateBanner = () => {
   return useMutation({
     mutationFn: (payload: { id: string; data: FormData }) =>
       updateBannerService(payload),
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Banner updated successfully");
-      queryClient.invalidateQueries({ queryKey: ["banners"] });
+      await queryClient.invalidateQueries({ queryKey: ["banners"] });
     },
     onError: (error: unknown) => {
       const err = error as {
@@ -64,9 +64,9 @@ export const useDeleteBanner = () => {
 
   return useMutation({
     mutationFn: (id: string) => deleteBannerService(id),
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       toast.success(data?.message || "Banner deleted successfully");
-      queryClient.invalidateQueries({ queryKey: ["banners"] });
+      await queryClient.invalidateQueries({ queryKey: ["banners"] });
     },
     onError: (error: unknown) => {
       const err = error as {
