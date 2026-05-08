@@ -13,6 +13,7 @@ import {
   DollarSign,
   AlertCircle,
   Archive,
+  FileSpreadsheet,
 } from "lucide-react";
 import {
   useGetProducts,
@@ -24,6 +25,7 @@ import { uploadProductImageService } from "@/services/product.service";
 import { Button } from "@/components/ui/button";
 import { ConfirmModal } from "@/components/ui/confirm-modal";
 import { ProductModal } from "@/components/ui/product-modal";
+import { BulkUploadModal } from "@/components/ui/bulk-upload-modal";
 import type { ProductUpdateData } from "@/components/ui/product-modal";
 import type { Product } from "@/types";
 
@@ -40,6 +42,7 @@ export default function ProductsPage() {
   const [deleteTarget, setDeleteTarget] = useState<Product | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [editTarget, setEditTarget] = useState<Product | null>(null);
+  const [bulkUploadOpen, setBulkUploadOpen] = useState(false);
 
   const products = data?.products ?? [];
 
@@ -135,10 +138,16 @@ export default function ProductsPage() {
             Manage your product catalog.
           </p>
         </div>
-        <Button onClick={openCreate}>
-          <Plus className="h-4 w-4" />
-          Add Product
-        </Button>
+        <div className="flex gap-2">
+          <Button variant="outline" onClick={() => setBulkUploadOpen(true)}>
+            <FileSpreadsheet className="h-4 w-4" />
+            Bulk Upload
+          </Button>
+          <Button onClick={openCreate}>
+            <Plus className="h-4 w-4" />
+            Add Product
+          </Button>
+        </div>
       </div>
 
       {/* Stats */}
@@ -410,6 +419,12 @@ export default function ProductsPage() {
         isLoading={deleteProduct.isPending}
         onConfirm={confirmDelete}
         onCancel={() => setDeleteTarget(null)}
+      />
+
+      {/* Bulk Upload Modal */}
+      <BulkUploadModal
+        isOpen={bulkUploadOpen}
+        onClose={() => setBulkUploadOpen(false)}
       />
     </div>
   );

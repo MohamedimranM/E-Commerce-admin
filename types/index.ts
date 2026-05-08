@@ -111,6 +111,24 @@ export interface ImageUploadResponse {
   public_id: string;
 }
 
+export interface BulkUploadResult {
+  row: number;
+  productId?: string;
+  name?: string;
+  data?: any;
+  error?: string;
+}
+
+export interface BulkUploadResponse {
+  success: boolean;
+  message: string;
+  results: {
+    successful: BulkUploadResult[];
+    failed: BulkUploadResult[];
+    total: number;
+  };
+}
+
 // ── API Error ────────────────────────────────────────────────
 export interface ApiError {
   message: string;

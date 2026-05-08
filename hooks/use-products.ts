@@ -8,6 +8,8 @@ import {
   createProductService,
   updateProductService,
   deleteProductService,
+  bulkUploadProductsService,
+  downloadBulkTemplateService,
 } from "@/services/product.service";
 import type { ProductPayload } from "@/types";
 
@@ -85,6 +87,48 @@ export const useDeleteProduct = () => {
       };
       toast.error(
         err?.response?.data?.message || err?.message || "Failed to delete product"
+      );
+    },
+  });
+};
+
+export const useBulkUploadProducts = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (file: File) => bulkUploadProductsService(file),
+    onSuccess: async (data) => {
+      const { results } = data;
+      toast.success(
+        `Bulk upload completed! ${results.successful.length} products created, ${results.failed.length} failed.`
+      );
+      await queryClient.invalidateQueries({ queryKey: ["products"] });
+    },
+    onError: (error: unknown) => {
+      const err = error as {
+        response?: { data?: { message?: string } };
+        message?: string;
+      };
+      toast.error(
+        err?.response?.data?.message || err?.message || "Failed to upload products"
+      );
+    },
+  });
+};
+
+export const useDownloadBulkTemplate = () => {
+  return useMutation({
+    mutationFn: () => downloadBulkTemplateService(),
+    onSuccess: () => {
+      toast.success("Template downloaded successfully");
+    },
+    onError: (error: unknown) => {
+      const err = error as {
+        response?: { data?: { message?: string } };
+        message?: string;
+      };
+      toast.error(
+        err?.response?.data?.message || err?.message || "Failed to download template"
       );
     },
   });
